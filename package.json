@@ -4,22 +4,35 @@
   "description": "Send the coverage difference back to the github on each pull requests",
   "main": "index.js",
   "scripts": {
+    "prepare": "babel src --out-dir dist",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Leko/coverage-diff-back.git"
-  },
+  "files": [
+    "dist"
+  ],
+  "repository": "Leko/coverage-diff-back",
   "keywords": [
     "ci",
     "test",
     "coverage",
-    "report"
+    "report",
+    "github",
+    "pull request"
   ],
   "author": "Leko <leko.noor@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Leko/coverage-diff-back/issues"
   },
-  "homepage": "https://github.com/Leko/coverage-diff-back#readme"
+  "homepage": "https://github.com/Leko/coverage-diff-back#readme",
+  "dependencies": {
+    "env-ci": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "typescript": "^3.2.1"
+  }
 }
