@@ -1,0 +1,25 @@
+{
+  "name": "coverage-diff-back",
+  "version": "0.0.1",
+  "description": "Send the coverage difference back to the github on each pull requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leko/coverage-diff-back.git"
+  },
+  "keywords": [
+    "ci",
+    "test",
+    "coverage",
+    "report"
+  ],
+  "author": "Leko <leko.noor@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Leko/coverage-diff-back/issues"
+  },
+  "homepage": "https://github.com/Leko/coverage-diff-back#readme"
+}
