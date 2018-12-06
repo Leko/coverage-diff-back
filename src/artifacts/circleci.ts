@@ -34,6 +34,11 @@ export const fetchArtifacts = async ({
     res => res.json()
   );
 
+  // @ts-ignore Property 'message' does not exist on type 'CircleCIArtifact[]'
+  if (response.message) {
+    // @ts-ignore
+    throw new Error(response.message);
+  }
   const coverageArtifactMeta = response.filter(({ path }) =>
     minimatch.match(path)
   );
