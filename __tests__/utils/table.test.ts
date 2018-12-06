@@ -151,10 +151,10 @@ describe("utils", () => {
           files: gen(120, 60, -60),
           lines: gen(100, 3456, 3356)
         },
-        total: gen(null, 5, 5),
-        lines: gen(10, 20, 10),
-        statements: gen(20, 10, -10),
-        functions: gen(null, 100, 100),
+        total: gen(null, 5.4, 5.4),
+        lines: gen(10, 20.2, 10.2),
+        statements: gen(20, 9.8, -9.8),
+        functions: gen(null, 99.5, 99.5),
         branches: gen(null, 0, 0)
       };
 
