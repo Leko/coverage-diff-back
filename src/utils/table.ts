@@ -115,9 +115,11 @@ export const generateTable = (
     row([
       padder(mark(t.diff)),
       padder("Coverage"),
-      padder(t.old != null ? `${t.old}%` : "-"),
-      padder(`${t.now}%`),
-      padder(withSign(t.diff) != null ? `${withSign(t.diff)}%` : "-")
+      padder(t.old != null ? `${Math.round(t.old)}%` : "-"),
+      padder(`${Math.round(t.now)}%`),
+      padder(
+        withSign(t.diff) != null ? `${withSign(Math.round(t.diff))}%` : "-"
+      )
     ]),
     raw(border("Diagnostics")),
     row([
@@ -138,30 +140,38 @@ export const generateTable = (
     row([
       padder(mark(cL.diff)),
       padder("Lines"),
-      padder(cL.old != null ? `${cL.old}%` : "-"),
-      padder(`${cL.now}%`),
-      padder(withSign(cL.diff) != null ? `${withSign(cL.diff)}%` : "-")
+      padder(cL.old != null ? `${Math.round(cL.old)}%` : "-"),
+      padder(`${Math.round(cL.now)}%`),
+      padder(
+        withSign(cL.diff) != null ? `${withSign(Math.round(cL.diff))}%` : "-"
+      )
     ]),
     row([
       padder(mark(cS.diff)),
       padder("Statements"),
-      padder(cS.old != null ? `${cS.old}%` : "-"),
-      padder(`${cS.now}%`),
-      padder(withSign(cS.diff) != null ? `${withSign(cS.diff)}%` : "-")
+      padder(cS.old != null ? `${Math.round(cS.old)}%` : "-"),
+      padder(`${Math.round(cS.now)}%`),
+      padder(
+        withSign(cS.diff) != null ? `${withSign(Math.round(cS.diff))}%` : "-"
+      )
     ]),
     row([
       padder(mark(cF.diff)),
       padder("Functions"),
-      padder(cF.old != null ? `${cF.old}%` : "-"),
-      padder(`${cF.now}%`),
-      padder(withSign(cF.diff) != null ? `${withSign(cF.diff)}%` : "-")
+      padder(cF.old != null ? `${Math.round(cF.old)}%` : "-"),
+      padder(`${Math.round(cF.now)}%`),
+      padder(
+        withSign(cF.diff) != null ? `${withSign(Math.round(cF.diff))}%` : "-"
+      )
     ]),
     row([
       padder(mark(cB.diff)),
       padder("Branches"),
-      padder(cB.old != null ? `${cB.old}%` : "-"),
-      padder(`${cB.now}%`),
-      padder(withSign(cB.diff) != null ? `${withSign(cB.diff)}%` : "-")
+      padder(cB.old != null ? `${Math.round(cB.old)}%` : "-"),
+      padder(`${Math.round(cB.now)}%`),
+      padder(
+        withSign(cB.diff) != null ? `${withSign(Math.round(cB.diff))}%` : "-"
+      )
     ])
   ];
 
