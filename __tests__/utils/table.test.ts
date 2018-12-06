@@ -148,10 +148,10 @@ describe("utils", () => {
       });
       const diff = {
         stats: {
-          files: gen(null, 0, 0),
+          files: gen(120, 60, -60),
           lines: gen(100, 3456, 3356)
         },
-        total: gen(null, 0, 0),
+        total: gen(null, 5, 5),
         lines: gen(10, 20, 10),
         statements: gen(20, 10, -10),
         functions: gen(null, 100, 100),
@@ -163,9 +163,9 @@ describe("utils", () => {
         "@@      Coverage Diff       @@",
         "             master #59  +/-  ",
         "========== Summary ===========",
-        "  Coverage   -      0%   +-0% ",
+        "+ Coverage   -      5%   +5%  ",
         "======== Diagnostics =========",
-        "  Files      -      0    +-0  ",
+        "  Files      120    60   -60  ",
         "  Lines      100    3456 +3356",
         "========= Coverages ==========",
         "+ Lines      10%    20%  +10% ",
