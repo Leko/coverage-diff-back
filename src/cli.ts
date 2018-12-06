@@ -36,9 +36,10 @@ collect({
   globPattern: options.coverageGlob,
   artifactFetcher: getArtifactFetcher(service),
   globFetcher: async pattern =>
-    glob(pattern, { ignore: "**/{node_modules,.git}/**" }).map(p =>
-      JSON.parse(fs.readFileSync(p, "utf8"))
-    )
+    glob(pattern, { ignore: "**/{node_modules,.git}/**" }).map(path => ({
+      path,
+      coverage: JSON.parse(fs.readFileSync(path, "utf8"))
+    }))
 })
   .then(diffReports => {
     if (diffReports.length === 0) {

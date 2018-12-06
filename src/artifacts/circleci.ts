@@ -46,8 +46,10 @@ export const fetchArtifacts = async ({
     "circle-token": process.env.CIRCLECI_TOKEN
   });
   return Promise.all(
-    coverageArtifactMeta.map(({ url }) =>
-      fetch(`${url}?${tokenQuery}`).then(res => res.json())
+    coverageArtifactMeta.map(({ path, url }) =>
+      fetch(`${url}?${tokenQuery}`)
+        .then(res => res.json())
+        .then(coverage => ({ path: `/${path}`, coverage }))
     )
   );
 };
