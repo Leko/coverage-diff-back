@@ -113,7 +113,7 @@ export const generateTable = (
     ]),
     raw(border("Summary")),
     row([
-      padder(" "),
+      padder(mark(t.diff)),
       padder("Coverage"),
       padder(t.old != null ? `${t.old}%` : "-"),
       padder(`${t.now}%`),
@@ -128,7 +128,7 @@ export const generateTable = (
       padder(orNA(withSign(statF.diff)))
     ]),
     row([
-      padder(mark(statF.diff)),
+      padder(" "),
       padder("Lines"),
       padder(orNA(statL.old)),
       padder(String(statL.now)),
