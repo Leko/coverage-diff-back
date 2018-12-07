@@ -24,6 +24,8 @@ jobs:
             - node_modules
           key: v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ checksum "package-lock.json" }}
       - run: npm test
+      - store_artifacts:
+          path: coverage
   node-latest:
     <<: *base
     docker:
