@@ -67,7 +67,15 @@ const getCoverageDiff = (
   };
 };
 
-const toRelative = (cwd: string) => ({
+export const addPrefix = (prefix: string) => ({
+  path,
+  ...other
+}: CoverageReport): CoverageReport => ({
+  path: prefix + path,
+  ...other
+});
+
+export const toRelative = (cwd: string) => ({
   path,
   ...other
 }: CoverageReport): CoverageReport => ({
@@ -100,7 +108,7 @@ export const collect = ({
   ])
     .then(
       ([remoteReports, localReports]: [CoverageReport[], CoverageReport[]]) => [
-        remoteReports.map(toRelative(cwd)),
+        remoteReports.map(addPrefix("/")).map(toRelative(cwd)),
         localReports.map(toRelative(cwd))
       ]
     )
