@@ -6,6 +6,7 @@ import envCI from "env-ci";
 import getArtifactFetcher from "./artifacts";
 import { collect } from "./collect";
 import { reporter } from "./report";
+import { statusUpdater } from "./statusUpdater";
 
 const options = yargs
   .option("metric", {
@@ -27,7 +28,7 @@ if (!process.env.GITHUB_TOKEN) {
   throw new Error("Environment variable GITHUB_TOKEN must be required");
 }
 const token = process.env.GITHUB_TOKEN;
-const { service, slug, pr, isPr } = envCI();
+const { service, slug, pr, isPr, commit, buildUrl } = envCI();
 
 if (!isPr) {
   console.log("This build is not triggered by pull request. Nothing to do.");
@@ -52,16 +53,28 @@ collect({
     }
     return diffReports;
   })
-  .then(
-    reporter({
+  .then(async diffReports => {
+    const sendComment = reporter({
       slug,
       prId: pr,
       branch: options.from,
       token
-    })
-  )
-  .then((url: string) => {
-    console.log(`Comment created: ${url}`);
+    });
+    const updateStatus = statusUpdater({
+      slug,
+      sha: commit,
+      buildUrl,
+      token
+    });
+
+    const pendings = [
+      sendComment(diffReports).then((url: string) => {
+        console.log(`Comment created: ${url}`);
+      }),
+      updateStatus(diffReports)
+    ];
+
+    await Promise.all(pendings);
   })
   .catch((error: Error) => {
     console.error(error);
