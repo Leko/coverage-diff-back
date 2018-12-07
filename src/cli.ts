@@ -27,7 +27,12 @@ if (!process.env.GITHUB_TOKEN) {
   throw new Error("Environment variable GITHUB_TOKEN must be required");
 }
 const token = process.env.GITHUB_TOKEN;
-const { service, slug, pr } = envCI();
+const { service, slug, pr, isPr } = envCI();
+
+if (!isPr) {
+  console.log("This build is not triggered by pull request. Nothing to do.");
+  process.exit(0);
+}
 
 collect({
   cwd: process.cwd(),
