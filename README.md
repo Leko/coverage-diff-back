@@ -4,6 +4,16 @@ Send the coverage difference back to the github on each pull requests
 
 ## Install
 
+```
+npm install -g coverage-diff-back
+```
+
+Or you can use coverage-diff-back with `npx`.
+
+```
+npx coverage-diff-back
+```
+
 ## Usage
 
 ```
