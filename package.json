@@ -2,6 +2,9 @@
   "name": "coverage-diff-back",
   "version": "0.0.1",
   "description": "Send the coverage difference back to the github on each pull requests",
+  "bin": {
+    "coverage-diff-back": "dist/cli.js"
+  },
   "scripts": {
     "prepare": "babel src --out-dir dist",
     "test": "jest"
