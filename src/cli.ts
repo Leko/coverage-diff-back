@@ -6,28 +6,45 @@ import envCI from "env-ci";
 import getArtifactFetcher from "./artifacts";
 import { collect } from "./collect";
 import { reporter } from "./report";
+import { statusUpdater } from "./statusUpdater";
 
 const options = yargs
-  .option("metric", {
-    description: ""
-  })
+  .scriptName("coverage-diff-back")
+  .usage("Usage: $0 [options]")
   .option("coverage-glob", {
+    type: "string",
     default: "**/coverage/coverage-summary.json",
-    description: ""
+    description: "A glob pattern to specify path of coverage-summary.json"
   })
   .option("from", {
+    type: "string",
     default: "master",
     description: "Compare branch"
   })
   .option("status", {
-    type: "boolean"
-  }).argv;
+    type: "boolean",
+    description: "Update commit status"
+  })
+  .example("$0 --no-status", "# Doesn't update commit status")
+  .example(
+    "$0 --from develop",
+    "# Compare between develop and current pull request"
+  )
+  .epilogue(
+    "For more information, find our manual at https://github.com/Leko/coverage-diff-back"
+  )
+  .wrap(Math.min(90, yargs.terminalWidth())).argv;
 
 if (!process.env.GITHUB_TOKEN) {
   throw new Error("Environment variable GITHUB_TOKEN must be required");
 }
 const token = process.env.GITHUB_TOKEN;
-const { service, slug, pr } = envCI();
+const { service, slug, pr, isPr, commit, buildUrl } = envCI();
+
+if (!isPr) {
+  console.log("This build is not triggered by pull request. Nothing to do.");
+  process.exit(0);
+}
 
 collect({
   cwd: process.cwd(),
@@ -47,16 +64,28 @@ collect({
     }
     return diffReports;
   })
-  .then(
-    reporter({
+  .then(async diffReports => {
+    const sendComment = reporter({
       slug,
       prId: pr,
       branch: options.from,
       token
-    })
-  )
-  .then((url: string) => {
-    console.log(`Comment created: ${url}`);
+    });
+    const updateStatus = statusUpdater({
+      slug,
+      sha: commit,
+      buildUrl,
+      token
+    });
+
+    const pendings = [
+      sendComment(diffReports).then((url: string) => {
+        console.log(`Comment created: ${url}`);
+      }),
+      updateStatus(diffReports)
+    ];
+
+    await Promise.all(pendings);
   })
   .catch((error: Error) => {
     console.error(error);
