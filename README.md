@@ -2,6 +2,28 @@
 
 Send the coverage difference back to the github on each pull requests
 
+- Report coverage diff on every pull request
+- Update GitHub commit status
+- Monorepo ready
+
+<img width="708" alt="Update GitHub commit status" src="https://user-images.githubusercontent.com/1424963/49980569-540bbc80-ff97-11e8-8bc4-c2f798d01890.png">
+<img width="769" alt="Report coverage diff on every pull request" src="https://user-images.githubusercontent.com/1424963/49980573-566e1680-ff97-11e8-8f5d-eed4495bea73.png">
+
+## TOC
+
+- [Supported services](#supported-services)
+- [Install](#install)
+- [Usage](#usage)
+  - [Common setup](#common-setup)
+  - [CI Setup](#ci-setup)
+    - [CircleCI](#circleci)
+  - [Command-line usage](#command-line-usage)
+- [Contribution](#contribution)
+- [Development](#development)
+- [License](#license)
+
+---
+
 ## Supported services
 
 - [CircleCI](https://circleci.com)
@@ -29,7 +51,9 @@ Please add `json-summary` to coverage reporters.
 If you use jest, please refer [here](https://jestjs.io/docs/en/configuration.html#coveragereporters-array-string).  
 Or if you use nyc(istanbul), please refer [here](https://github.com/istanbuljs/nyc#running-reports).
 
-#### CI Setup: CircleCI
+### CI Setup
+
+#### CircleCI
 
 Please add `store_artifacts` step after your test step.  
 And then, set environment variables.
@@ -55,8 +79,6 @@ Options:
 Examples:
   coverage-diff-back --no-status     # Doesn't update commit status
   coverage-diff-back --from develop  # Compare between develop and current pull request
-
-For more information, find our manual at https://github.com/Leko/coverage-diff-back
 ```
 
 ## Contribution
