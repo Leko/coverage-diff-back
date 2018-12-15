@@ -1,5 +1,10 @@
 # coverage-diff-back
 
+[![CircleCI](https://circleci.com/gh/Leko/coverage-diff-back.svg?style=svg)](https://circleci.com/gh/Leko/coverage-diff-back)
+![](https://img.shields.io/npm/v/coverage-diff-back.svg)
+![](https://img.shields.io/npm/dm/coverage-diff-back.svg)
+![](https://img.shields.io/npm/l/coverage-diff-back.svg)
+
 Send the coverage difference back to the github on each pull requests
 
 - Report coverage diff on every pull request
