@@ -66,6 +66,8 @@ And then, set environment variables.
 - `CIRCLECI_TOKEN`: A CircleCI [personal API token](https://circleci.com/account/api)
 - `GITHUB_TOKEN`: A Github [personal access token](https://github.com/settings/tokens) with `repo` scope
 
+Optional: Turn on the `Only build pull requests` in Advanced Settings (if you needed).
+
 Working example is [here](https://github.com/Leko/coverage-diff-back/blob/master/.circleci/config.yml).
 
 ### Command-line usage
