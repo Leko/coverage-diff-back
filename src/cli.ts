@@ -36,12 +36,12 @@ const options = yargs
   )
   .wrap(Math.min(90, yargs.terminalWidth())).argv;
 
-if (!process.env.GITHUB_TOKEN) {
+const { GITHUB_TOKEN } = process.env;
+if (!GITHUB_TOKEN) {
   throw new Error("Environment variable GITHUB_TOKEN must be required");
 }
-const token = process.env.GITHUB_TOKEN;
-const { service, slug, pr, isPr, commit, buildUrl } = envCI();
 
+const { service, slug, pr, isPr, commit, buildUrl } = envCI();
 if (!isPr) {
   console.log("This build is not triggered by pull request. Nothing to do.");
   process.exit(0);
@@ -70,13 +70,13 @@ collect({
       slug,
       prId: pr,
       branch: options.from,
-      token
+      token: GITHUB_TOKEN
     });
     const updateStatus = statusUpdater({
       slug,
       sha: commit,
       buildUrl,
-      token
+      token: GITHUB_TOKEN
     });
 
     const pendings = [
