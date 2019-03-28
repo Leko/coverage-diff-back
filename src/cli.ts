@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import fs from "fs";
 import { sync as glob } from "glob";
 import yargs from "yargs";
