@@ -7,7 +7,7 @@
   },
   "scripts": {
     "commit": "git-cz",
-    "prepare": "babel src --out-dir dist",
+    "prepare": "babel src --out-dir dist --verbose --extensions '.ts'",
     "test": "jest"
   },
   "husky": {
