@@ -4,7 +4,7 @@ import { sync as glob } from "glob";
 import yargs from "yargs";
 // @ts-ignore
 import envCI from "env-ci";
-import getArtifactFetcher from "./artifacts";
+import getArtifactFetcher from "./artifacts/index";
 import { collect } from "./collect";
 import { reporter } from "./report";
 import { statusUpdater } from "./statusUpdater";
@@ -25,6 +25,10 @@ const options = yargs
   .option("status", {
     type: "boolean",
     description: "Update commit status"
+  })
+  .option("circleci-workflow", {
+    type: "string",
+    description: "Name of CircleCI workflow"
   })
   .example("$0 --no-status", "# Doesn't update commit status")
   .example(
@@ -57,7 +61,8 @@ collect({
     glob(pattern, { ignore: "**/{node_modules,.git}/**" }).map(path => ({
       path,
       coverage: JSON.parse(fs.readFileSync(path, "utf8"))
-    }))
+    })),
+  circleciWorkflow: options["circleci-workflow"]
 })
   .then(diffReports => {
     if (diffReports.length === 0) {

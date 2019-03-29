@@ -4,10 +4,12 @@ export interface ArtifactFetcher {
   fetchArtifacts({
     slug,
     branch,
-    globPattern
+    globPattern,
+    misc
   }: {
     slug: string;
     branch: string;
     globPattern: string;
+    misc: { circleciWorkflow: string };
   }): Promise<CoverageReport[]>;
 }
