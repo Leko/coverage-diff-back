@@ -4,7 +4,7 @@ import { sync as glob } from "glob";
 import yargs from "yargs";
 // @ts-ignore
 import envCI from "env-ci";
-import getArtifactFetcher from "./artifacts";
+import getArtifactFetcher from "./artifacts/index";
 import { collect } from "./collect";
 import { reporter } from "./report";
 import { statusUpdater } from "./statusUpdater";
@@ -26,6 +26,10 @@ const options = yargs
     type: "boolean",
     description: "Update commit status"
   })
+  .option("circleci-workflow", {
+    type: "string",
+    description: "Name of CircleCI workflow"
+  })
   .example("$0 --no-status", "# Doesn't update commit status")
   .example(
     "$0 --from develop",
@@ -36,12 +40,12 @@ const options = yargs
   )
   .wrap(Math.min(90, yargs.terminalWidth())).argv;
 
-if (!process.env.GITHUB_TOKEN) {
+const { GITHUB_TOKEN } = process.env;
+if (!GITHUB_TOKEN) {
   throw new Error("Environment variable GITHUB_TOKEN must be required");
 }
-const token = process.env.GITHUB_TOKEN;
-const { service, slug, pr, isPr, commit, buildUrl } = envCI();
 
+const { service, slug, pr, isPr, commit, buildUrl } = envCI();
 if (!isPr) {
   console.log("This build is not triggered by pull request. Nothing to do.");
   process.exit(0);
@@ -57,7 +61,8 @@ collect({
     glob(pattern, { ignore: "**/{node_modules,.git}/**" }).map(path => ({
       path,
       coverage: JSON.parse(fs.readFileSync(path, "utf8"))
-    }))
+    })),
+  circleciWorkflow: options["circleci-workflow"]
 })
   .then(diffReports => {
     if (diffReports.length === 0) {
@@ -70,13 +75,13 @@ collect({
       slug,
       prId: pr,
       branch: options.from,
-      token
+      token: GITHUB_TOKEN
     });
     const updateStatus = statusUpdater({
       slug,
       sha: commit,
       buildUrl,
-      token
+      token: GITHUB_TOKEN
     });
 
     const pendings = [

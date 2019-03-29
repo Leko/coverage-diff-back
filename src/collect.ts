@@ -88,6 +88,7 @@ export const collect = ({
   cwd,
   branch,
   globPattern,
+  circleciWorkflow,
   artifactFetcher,
   globFetcher
 }: {
@@ -95,6 +96,7 @@ export const collect = ({
   cwd: string;
   branch: string;
   globPattern: string;
+  circleciWorkflow: string;
   artifactFetcher: ArtifactFetcher["fetchArtifacts"];
   globFetcher: (globPattern: string) => Promise<CoverageReport[]>;
 }): Promise<Array<DiffReport>> => {
@@ -102,7 +104,8 @@ export const collect = ({
     artifactFetcher({
       slug,
       branch,
-      globPattern
+      globPattern,
+      misc: { circleciWorkflow }
     }),
     globFetcher(globPattern)
   ])

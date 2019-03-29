@@ -50,6 +50,6 @@ jobs:
             - node_modules
           key: v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ checksum "package-lock.json" }}
       - run: npm test
-      - run: npx babel-node --extensions '.ts' src/cli.ts
+      - run: npx babel-node --extensions '.ts' src/cli.ts --circleci-workflow=node-multi-build
       - store_artifacts:
           path: coverage
