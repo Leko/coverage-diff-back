@@ -1,6 +1,6 @@
 {
   "name": "coverage-diff-back",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Send the coverage difference back to the github on each pull requests",
   "bin": {
     "coverage-diff-back": "dist/cli.js"
