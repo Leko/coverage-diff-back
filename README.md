@@ -64,7 +64,7 @@ Please add `store_artifacts` step after your test step.
 And then, set environment variables.
 
 - `CIRCLECI_TOKEN`: A CircleCI [personal API token](https://circleci.com/account/api)
-- `GITHUB_TOKEN`: A Github [personal access token](https://github.com/settings/tokens) with `repo` scope
+- `GITHUB_TOKEN`: A Github [personal access token](https://github.com/settings/tokens) with `repo` and `gist` scope
 
 Optional: Turn on the `Only build pull requests` in Advanced Settings (if you needed).
 

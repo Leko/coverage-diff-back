@@ -41,6 +41,7 @@
   },
   "homepage": "https://github.com/Leko/coverage-diff-back#readme",
   "dependencies": {
+    "@octokit/graphql": "^2.0.2",
     "@octokit/rest": "^16.1.0",
     "deindent": "^0.1.0",
     "env-ci": "^3.1.2",
