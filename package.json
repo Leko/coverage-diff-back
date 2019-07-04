@@ -7,8 +7,9 @@
   },
   "scripts": {
     "commit": "git-cz",
-    "prepare": "babel src --out-dir dist --verbose --extensions '.ts'",
-    "test": "jest"
+    "prepare": "npm run snyk-protect; babel src --out-dir dist --verbose --extensions '.ts'",
+    "test": "jest",
+    "snyk-protect": "snyk protect"
   },
   "husky": {
     "hooks": {
@@ -47,7 +48,8 @@
     "env-ci": "^3.1.2",
     "glob": "^7.1.3",
     "node-fetch": "^2.3.0",
-    "yargs": "^12.0.5"
+    "yargs": "^12.0.5",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
@@ -71,5 +73,6 @@
     "ts-jest": "^23.10.5",
     "ts-node": "^8.0.3",
     "typescript": "^3.2.1"
-  }
+  },
+  "snyk": true
 }
